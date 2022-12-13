@@ -1,6 +1,6 @@
 package adapters
 
 type Adapter[T interface{}] interface {
-	Read() T
-	Write(data T)
+	Read() (*T, error)
+	Write(data T) error
 }
