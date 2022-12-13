@@ -13,6 +13,26 @@ func New[T any](adapter adapters.Adapter[T]) *Store[T] {
 	}
 }
 
+func NewWithJSONAdapter[T any](opts adapters.JSONAdapterOptions) (*Store[T], error) {
+	adapter, err := adapters.NewJSONAdapter[T](opts)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &Store[T]{
+		adapter: adapter,
+	}, nil
+}
+
+func NewWithInMemoryAdapter[T any]() *Store[T] {
+	adapter := adapters.NewInMemoryAdapter[T]()
+
+	return &Store[T]{
+		adapter: adapter,
+	}
+}
+
 func (store *Store[T]) Read() error {
 	data, err := store.adapter.Read()
 
@@ -21,6 +41,14 @@ func (store *Store[T]) Read() error {
 	}
 
 	store.Data = *data
+
+	return nil
+}
+
+func (store *Store[T]) Write(data T) error {
+	if err := store.adapter.Write(data); err != nil {
+		return err
+	}
 
 	return nil
 }

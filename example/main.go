@@ -30,5 +30,9 @@ func main() {
 		panic(err)
 	}
 
+	store.Write(User{
+		Name: "Test",
+	})
+
 	fmt.Printf(store.Data.Name)
 }
