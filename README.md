@@ -7,6 +7,8 @@
 
 [![GitHub license](https://img.shields.io/github/license/LegendaryB/go-store.svg?longCache=true&style=flat-square)](https://github.com/LegendaryB/go-store/blob/main/LICENSE.txt)
 
+<sub>Built with ❤︎ by LegendaryB</sub>
+
 </div><br>
 
 ## 🎯 Features
