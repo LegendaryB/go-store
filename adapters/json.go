@@ -3,8 +3,7 @@ package adapters
 import (
 	"encoding/json"
 	"os"
-
-	"github.com/LegendaryB/go-store/utils"
+	"path/filepath"
 )
 
 type JSONAdapterOptions struct {
@@ -27,12 +26,26 @@ func NewJSONAdapter[T any](opts JSONAdapterOptions) (*JSONAdapter[T], error) {
 	}
 
 	if adapter.createFileWhenNotPresent {
-		if err := utils.CreateFileIfNotExist(adapter.path); err != nil {
+		if err := adapter.createEmptyJSONFile(); err != nil {
 			return nil, err
 		}
 	}
 
 	return adapter, nil
+}
+
+func (adapter *JSONAdapter[T]) createEmptyJSONFile() error {
+	directoryPath := filepath.Dir(adapter.path)
+
+	if err := os.MkdirAll(directoryPath, os.ModePerm); err != nil {
+		return err
+	}
+
+	if _, err := os.Stat(adapter.path); os.IsNotExist(err) {
+		os.WriteFile(adapter.path, []byte(`{}`), os.ModePerm)
+	}
+
+	return nil
 }
 
 func (adapter *JSONAdapter[T]) Read() (*T, error) {
