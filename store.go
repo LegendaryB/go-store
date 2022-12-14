@@ -4,7 +4,7 @@ import "github.com/LegendaryB/go-store/adapters"
 
 type Store[T any] struct {
 	adapter adapters.Adapter[T]
-	data    T
+	Data    T
 }
 
 func New[T any](adapter adapters.Adapter[T]) *Store[T] {
@@ -40,13 +40,13 @@ func (store *Store[T]) Read() error {
 		return err
 	}
 
-	store.data = *data
+	store.Data = *data
 
 	return nil
 }
 
 func (store *Store[T]) Write() error {
-	if err := store.adapter.Write(store.data); err != nil {
+	if err := store.adapter.Write(store.Data); err != nil {
 		return err
 	}
 

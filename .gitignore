@@ -39,3 +39,4 @@
 !.vscode/*.code-snippets
 
 *.json
+/example
