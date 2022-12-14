@@ -169,7 +169,7 @@ func main() {
 To implement a custom provider you only need to implement the `Adapter` interface:
 
 ```go
-type Adapter[T interface{}] interface {
+type Adapter[T any] interface {
 	Read() (*T, error)
 	Write(data T) error
 }
